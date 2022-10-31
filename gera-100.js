@@ -48,6 +48,7 @@ for (let i=0;i<3;i++) {
 d.getElementsByClassName('n1')[0].classList.add("nsel");
 
 atualizaReferencias(ma);
+atualizaReferencias(ma);
 
 // adiciona evento a cada um dos botões que ajustam o nível de dificuldade
 for ( let i=1;i<6;i++) {
