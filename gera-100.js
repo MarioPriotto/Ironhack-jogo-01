@@ -52,22 +52,29 @@ do {
     contador = contador + 9;
 }  while ( contador < 82 )
 
-document.getElementsByTagName("body")[0].appendChild(document.createElement("div")).classList.add("todas");
-todas = document.getElementsByClassName("todas")[0];
+let d = document;
+
+//d.getElementsByTagName("body")[0].appendChild(d.createElement("div")).classList.add("todas");
+todas = d.getElementsByClassName("todas")[0];
+
+// todas.appendChild(document.createElement("div")).classList.add("linf");
+// linTitulo = document.getElementsByClassName("linf")[0];
+// linTitulo.appendChild(document.createElement("button")).classList.add("button01");
 
 contador = 0;
 for (let i=0;i<3;i++) {
-    todas.appendChild(document.createElement("div")).classList.add("linha"+i);
-    let l = document.getElementsByClassName("linha"+i)[0];
+    todas.appendChild(d.createElement("div")).classList.add("linha"+i);
+    let l = d.getElementsByClassName("linha"+i)[0];
     for ( let x=0;x<3;x++) {
-        l.appendChild(document.createElement("div")).classList.add("linha"+i+"cel"+x);
-        let c = document.getElementsByClassName("linha"+i+"cel"+x)[0];
+        l.appendChild(d.createElement("div")).classList.add("linha"+i+"cel"+x);
+        let c = d.getElementsByClassName("linha"+i+"cel"+x)[0];
         for ( let k=0;k<3;k++) {
-            c.appendChild(document.createElement("div")).classList.add("linha"+i+"cel"+x+"lc"+k);
-            let d = document.getElementsByClassName("linha"+i+"cel"+x+"lc"+k)[0];
+            c.appendChild(d.createElement("div")).classList.add("linha"+i+"cel"+x+"lc"+k);
+            let m = d.getElementsByClassName("linha"+i+"cel"+x+"lc"+k)[0];
+            m.classList.add("cadalinpeq");
             for ( let j=0;j<3;j++) {
-                d.appendChild(document.createElement("div")).classList.add("linha"+i+"cel"+x+"lc"+k+"in"+j);
-                let e = document.getElementsByClassName("linha"+i+"cel"+x+"lc"+k+"in"+j)[0];
+                m.appendChild(d.createElement("div")).classList.add("linha"+i+"cel"+x+"lc"+k+"in"+j);
+                let e = d.getElementsByClassName("linha"+i+"cel"+x+"lc"+k+"in"+j)[0];
                 e.classList.add("cadapos");
                 e.textContent = ma[contador];
                 contador += 1;

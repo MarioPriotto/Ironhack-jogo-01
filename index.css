@@ -1,6 +1,32 @@
 .todas {
-    width: 500px;
+    width: 600px;
     margin: 0 auto;
+}
+
+.linhaTitulo {
+    display: flex;
+    justify-content: space-around;
+    align-items:center;
+    background-color: #c8e3c653;
+    border: 1px dashed #59bb5236;
+}
+
+.nd {
+    border-radius: 50%;
+    border-color: #CCCCCC;
+}
+
+.njogo {
+    border-radius: 6px;
+    padding: 4px;
+}
+
+.tempo {
+
+}
+
+.pontos {
+    font-weight:bold;
 }
 
 .linha0, .linha1, .linha2 {
@@ -15,23 +41,20 @@
 .linha1cel0, .linha1cel1, .linha1cel2,
 .linha2cel0, .linha2cel1, .linha2cel2 {
     background-color:rgb(230, 230, 230);
-    display: flex;
-    justify-content: space-around;
-    align-content: space-around;
     padding: 2px 2px;
-    /* width: 90%; */
     border: 1px dotted rgba(248, 200, 165, 0.947);
-    /* border-style: dotted;
-    border-color: rgba(248, 200, 165, 0.947); */
     margin: 2px 9px;
+}
+
+.cadalinpeq {
+    display: flex;    
 }
 
 .cadapos {
     background-color:aliceblue;
     padding: 8px;
     font-size: 18px;
-    border: 1px;
-    border-style: dashed;
+    border: 1px dashed #CCCCCC;
     margin: 7px;
     font-weight: bold;
 }
