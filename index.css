@@ -1,0 +1,38 @@
+.todas {
+    width: 500px;
+    margin: 0 auto;
+}
+
+.linha0, .linha1, .linha2 {
+    background-color: rgb(240, 244, 245);
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    align-content:space-around;
+}
+
+.linha0cel0, .linha0cel1, .linha0cel2,
+.linha1cel0, .linha1cel1, .linha1cel2,
+.linha2cel0, .linha2cel1, .linha2cel2 {
+    background-color:rgb(230, 230, 230);
+    display: flex;
+    justify-content: space-around;
+    align-content: space-around;
+    padding: 2px 2px;
+    /* width: 90%; */
+    border: 1px dotted rgba(248, 200, 165, 0.947);
+    /* border-style: dotted;
+    border-color: rgba(248, 200, 165, 0.947); */
+    margin: 2px 9px;
+}
+
+.cadapos {
+    background-color:aliceblue;
+    padding: 8px;
+    font-size: 18px;
+    border: 1px;
+    border-style: dashed;
+    margin: 7px;
+    font-weight: bold;
+}
+

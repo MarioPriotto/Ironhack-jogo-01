@@ -52,30 +52,6 @@ do {
     contador = contador + 9;
 }  while ( contador < 82 )
 
-document.getElementsByTagName("body")[0].appendChild(document.createElement("div")).classList.add("todas");
-todas = document.getElementsByClassName("todas")[0];
-
-contador = 0;
-for (let i=0;i<3;i++) {
-    todas.appendChild(document.createElement("div")).classList.add("linha"+i);
-    let l = document.getElementsByClassName("linha"+i)[0];
-    for ( let x=0;x<3;x++) {
-        l.appendChild(document.createElement("div")).classList.add("linha"+i+"cel"+x);
-        let c = document.getElementsByClassName("linha"+i+"cel"+x)[0];
-        for ( let k=0;k<3;k++) {
-            c.appendChild(document.createElement("div")).classList.add("linha"+i+"cel"+x+"lc"+k);
-            let d = document.getElementsByClassName("linha"+i+"cel"+x+"lc"+k)[0];
-            for ( let j=0;j<3;j++) {
-                d.appendChild(document.createElement("div")).classList.add("linha"+i+"cel"+x+"lc"+k+"in"+j);
-                let e = document.getElementsByClassName("linha"+i+"cel"+x+"lc"+k+"in"+j)[0];
-                e.classList.add("cadapos");
-                e.textContent = ma[contador];
-                contador += 1;
-            }
-        }
-    }
-}
-
 let l = 0;
 console.log("-------------------------------");
 listaExisteLinGr.forEach( e => {
