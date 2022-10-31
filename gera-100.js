@@ -52,7 +52,7 @@ do {
     contador = contador + 9;
 }  while ( contador < 82 )
 
-let d = document;
+let d = document; 
 
 //d.getElementsByTagName("body")[0].appendChild(d.createElement("div")).classList.add("todas");
 todas = d.getElementsByClassName("todas")[0];
