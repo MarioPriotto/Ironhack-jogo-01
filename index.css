@@ -10,7 +10,7 @@
 }
 
 .todas {
-    width: 420px;
+    width: 350px;
     margin: 0 auto;
 }
 
@@ -20,6 +20,8 @@
     align-items:center;
     background-color: #c8e3c653;
     border: 1px dashed #59bb5236;
+    margin-bottom: 2px;
+    border-radius: 5px;;
 }
 
 .nivelDificuldade {    
@@ -92,24 +94,50 @@
 
 .linhaNumeros {
     display: flex;
-    justify-content:space-around;
+    justify-content: space-between;
+    align-items:center;
+    /* align-items: baseline; */
+
+    /* display: flex;
+    justify-content:space-between; */
+    
+    /* justify-items: center;
+    justify-items: baseline;
+    align-content: center;
+    align-content: space-between; */
+    /* align-items: center; */
+    /* text-align: center; */
+    /* vertical-align: middle; */
+
     background-color: #c8e3c653;
+    margin: 2px 2px 0px 2px;
+    /* margin-left: 2px;
+    margin-right: 2px;
+    margin-top: 2px; */
+    border-radius: 5px;
 }
 
 .linhaNumeros a {
+    display: flex;
+    justify-content:center;
+    align-items:center;
+
     text-decoration: none;
-    padding: 10px;
+    padding: 5px;
     border: 1px solid rgb(212, 200, 200);
     border-radius: 5px;
     color: #331616;
     background-color:rgb(230, 230, 230);
+    height: 12px;
+    width: 15px;
 }
 
 .linha0, .linha1, .linha2 {
     background-color: rgb(240, 244, 245);
     display: flex;
     justify-content: space-around;
-    padding: 10px;
+    /* padding: 6px; */
+    /* margin: 4px; */
     align-content:space-around;
 }
 
@@ -118,8 +146,9 @@
 .linha2cel0, .linha2cel1, .linha2cel2 {
     background-color:rgb(230, 230, 230);
     border: 1px dotted rgba(248, 200, 165, 0.947);
-    box-shadow: 5px 5px rgb(241, 224, 224);
+    /* box-shadow: 5px 5px rgb(241, 224, 224); */
     border-radius: 5px;
+    margin: 2px 2px 2px 2px;
 }
 
 .cadalinpeq {
@@ -128,12 +157,12 @@
 
 .cadapos {
     background-color:aliceblue;
-    padding: 8px;
-    font-size: 18px;
+    padding: 7px;
+    font-size: 16px;
     margin: 7px;
     font-weight: bold;
-    width: 8px;
-    height: 15px;
+    width: 7px;
+    height: 14px;
     border-radius: 7px;
 }
 .cadapos_padrao {
