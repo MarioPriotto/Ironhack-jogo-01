@@ -22,7 +22,7 @@ let listaExisteColGr = [ [0,3,6,27,30,33,54,57,60], [1,4,7,28,31,34,55,58,61], [
              ];
 
 // tempo para iniciar a contagem regressiva;
-let tempototal = 60;
+let tempototal = 600;
 let tempo = tempototal;
 let decorrido = 0;
 
@@ -89,6 +89,7 @@ d.getElementsByClassName('njogo')[0].addEventListener( 'click', () => {
     decorrido = 0;
     atualizaReferencias(ma,listaExisteCEL3x3);
     apresentaConsole(listaExisteLinGr,ma);
+    ajustaPrimeiraOpcao();
 });
 
 // Adiciona classe padrão aos campos de input
