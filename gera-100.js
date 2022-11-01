@@ -20,12 +20,12 @@ let listaExisteColGr = [ [0,3,6,27,30,33,54,57,60], [1,4,7,28,31,34,55,58,61], [
 geraAleatorios(ma);
 
 var d = document; 
-let todas = d.getElementsByClassName("todas")[0];
+let corpo = d.getElementsByClassName("corpo")[0];
 
 // cria o HTML (no DOM) que apresenta os números do jogo
 let contador = 0;
 for (let i=0;i<3;i++) {
-    todas.appendChild(d.createElement("div")).classList.add("linha"+i);
+    corpo.appendChild(d.createElement("div")).classList.add("linha"+i);
     let l = d.getElementsByClassName("linha"+i)[0];
     for ( let x=0;x<3;x++) {
         l.appendChild(d.createElement("div")).classList.add("linha"+i+"cel"+x);
@@ -38,13 +38,13 @@ for (let i=0;i<3;i++) {
                 m.appendChild(d.createElement("div")).classList.add("linha"+i+"cel"+x+"lc"+k+"in"+j);
                 let e = d.getElementsByClassName("linha"+i+"cel"+x+"lc"+k+"in"+j)[0];
                 e.classList.add("cadapos");
-                // e.textContent = "-" + ma[contador];
-                //e.textContent = ma[contador];
+                e.id = contador;
                 contador += 1;
             }
         }
     }
 }
+
 d.getElementsByClassName('n1')[0].classList.add("nsel");
 
 apresentaConsole(listaExisteLinGr,ma);
@@ -68,35 +68,36 @@ d.getElementsByClassName('njogo')[0].addEventListener( 'click', () => {
     apresentaConsole(listaExisteLinGr,ma);
 });
 
-for (let i=0;i<3;i++) {
-    for ( let x=0;x<3;x++) {
-        for ( let k=0;k<3;k++) {
-            for ( let j=0;j<3;j++) {
-                let de = d.getElementsByClassName("linha"+i+"cel"+x+"lc"+k+"in"+j)[0];
-                de.addEventListener( 'click', (event) => {
-                    if ( de.textContent == " " ) { 
-
-                        event.target.style.border = "1px solid red";
-                        console.log("passou-0");
-                    }
-                });
-                // de.addEventListener( 'mouseover', (event) => {
-                //     if ( de.textContent == " " ) { 
-                //         event.target.style.background = "rgba(88, 179, 195, 0.947)";
-                //         console.log("passou-9");
-                //     }
-                // });
-                // de.addEventListener( 'mouseout', (event) => {
-                //     event.target.style.background = "aliceblue";
-                //     console.log("passou-retirada");
-                // });
-            }
+// Adiciona classe padrão aos campos de input (para border não-vermelho)
+// Adiciona Listener para cada campo de input
+let de = d.getElementsByClassName('cadapos');
+[...de].forEach( event => { 
+    event.classList.add("cadapos_padrao");
+    event.addEventListener('click', (e) => {
+        //if ( e.currentTarget.textContent == " " || e.currentTarget.style.color == "black" ) { 
+        if ( e.currentTarget.style.color == "black" ) { 
+            [...d.getElementsByClassName('cadapos')].forEach( i => {
+                i.classList.remove("cadapos_selec");
+                i.classList.add("cadapos_padrao");
+            });
+            e.currentTarget.classList.add("cadapos_selec");
+            e.currentTarget.classList.remove("cadapos_padrao");
         }
-    }
-}
+    });
+});
 
-//d.getElementById('idtodas').addEventListener( 'keypress', function () {
-//d.getElementById('idtodas').addEventListener("keypress",processar,true);
+// adiciona evento a cada um dos 9 botões que aplicam o número 1-9 na posição marcada
+let temp = d.getElementsByClassName('clinhaN');
+for ( let i=0;i<9;i++) {
+    temp[i].addEventListener( 'click', (event) => {
+        console.log("botão clicado: ",event.currentTarget);
+        if ( d.getElementsByClassName('cadapos_selec')[0] ) {
+            d.getElementsByClassName('cadapos_selec')[0].textContent = 
+                event.currentTarget.textContent;
+            ma[event.currentTarget.id] = event.currentTarget.textContent;
+        }
+    });
+}
 
 // *******************************************************************
 
@@ -188,23 +189,43 @@ function existeInconsis (indice, numero, lista, listaMatriz) {
         celatuar += 1;
     }
 
+
+    // let contador = 0;
+    // for (let i=0;i<3;i++) {
+    //     for ( let x=0;x<3;x++) {
+    //         for ( let k=0;k<3;k++) {
+    //             for ( let j=0;j<3;j++) {
+    //                 let e = d.getElementsByClassName("linha"+i+"cel"+x+"lc"+k+"in"+j)[0];
+    //                 e.textContent = lista[contador];
+    //                 e.classList.add("cadapos_padrao");
+    //                 e.classList.remove("cadapos_selec");
+    //                 if ( e.textContent == 0 ) { 
+    //                     e.textContent = " ";
+    //                     e.classList.add("cadapos_padrao")
+    //                     e.classList.remove("cadapos_selec")
+    //                 } else {
+    //                     e.style.color = "red";
+    //                 }
+    //                 contador += 1;
+    //             }
+    //         }
+    //     }
+    // }
+
     let contador = 0;
-    for (let i=0;i<3;i++) {
-        for ( let x=0;x<3;x++) {
-            for ( let k=0;k<3;k++) {
-                for ( let j=0;j<3;j++) {
-                    let e = d.getElementsByClassName("linha"+i+"cel"+x+"lc"+k+"in"+j)[0];
-                    e.textContent = lista[contador];
-                    if ( e.textContent == 0 ) { 
-                        e.textContent = " ";
-                    } else {
-                        e.style.color = "red";
-                    }
-                    contador += 1;
-                }
-            }
+    let de = d.getElementsByClassName('cadapos');
+    [...de].forEach( event => { 
+        event.classList.add("cadapos_padrao");
+        event.classList.remove("cadapos_selec");
+        event.textContent = lista[contador];
+        if ( event.textContent == 0 ) { 
+            event.textContent = " ";
+            event.style.color = "black";
+        } else {
+            event.style.color = "red";
         }
-    }
+        contador += 1;
+    });
 
  }
 

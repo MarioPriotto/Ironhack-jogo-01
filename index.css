@@ -1,3 +1,9 @@
+/* * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+} */
+
 .todas {
     width: 420px;
     margin: 0 auto;
@@ -13,7 +19,10 @@
 
 .nd {
     border-radius: 50%; 
-    border-color: #CCCCCC;
+    /* border-color: #CCCCCC; */
+    border: 1px solid rgb(212, 200, 200);
+    width: 25px;
+    height: 25px;
 }
 .nsel {
     background-color: bisque;
@@ -33,6 +42,46 @@
     font-weight:bold;
 }
 
+.linhaNumeros {
+    /* width: 100%; */
+    display: flex;
+    /* flex-direction: row; */
+    justify-content:space-around;
+    /* align-items:center;  */
+    /* align-content: center; */
+    background-color: #c8e3c653;
+    /* border: 1px dashed #59bb5236; */
+    /* list-style-type: none; */
+    /* margin: 0 auto;
+    padding: 10px;
+    height: 30px;  */
+}
+
+.linhaNumeros a {
+    text-decoration: none;
+    /* border: 1px dashed #59bb5236; */
+    padding: 10px;
+    border: 1px solid rgb(212, 200, 200);
+    border-radius: 5px;
+    color: #331616;
+    /* background-color: rgb(240, 244, 245); */
+    /* background-color: rgb(240, 244, 245); */
+    background-color:rgb(230, 230, 230);
+}
+
+ /* .linhaNumeros ul li {
+    border: 1px solid rgb(212, 200, 200);
+    padding: 10px;
+    border-radius: 50%;;
+    background-color: bisque;
+    width: 35px;
+    height: 35px;
+    margin: 0px auto;
+    padding: 0px;
+    text-align: center;
+} */
+
+
 .linha0, .linha1, .linha2 {
     background-color: rgb(240, 244, 245);
     display: flex;
@@ -50,6 +99,7 @@
     border: 1px dotted rgba(248, 200, 165, 0.947);
     box-shadow: 5px 5px rgb(241, 224, 224);
     /* margin: 8px 4px; */
+    border-radius: 5px;
 }
 
 .cadalinpeq {
@@ -60,10 +110,17 @@
     background-color:aliceblue;
     padding: 8px;
     font-size: 18px;
-    border: 1px dashed #CCCCCC;
+    /* border: 1px dashed #CCCCCC; */
     margin: 7px;
     font-weight: bold;
     width: 8px;
-    height: 15px;;
+    height: 15px;
+    border-radius: 7px;
+}
+.cadapos_padrao {
+    border: 1px dashed #CCCCCC;
+}
+.cadapos_selec  {
+    border: 1px solid red;
 }
 
