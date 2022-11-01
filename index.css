@@ -43,44 +43,31 @@
 }
 
 .linhaNumeros {
-    /* width: 100%; */
     display: flex;
-    /* flex-direction: row; */
     justify-content:space-around;
-    /* align-items:center;  */
-    /* align-content: center; */
     background-color: #c8e3c653;
-    /* border: 1px dashed #59bb5236; */
-    /* list-style-type: none; */
-    /* margin: 0 auto;
+    /* width: 100%;
+    flex-direction: row;
+    align-items:center; 
+    align-content: center;
+    border: 1px dashed #59bb5236;
+    list-style-type: none;
+    margin: 0 auto;
     padding: 10px;
-    height: 30px;  */
+    height: 30px; */
 }
 
 .linhaNumeros a {
     text-decoration: none;
-    /* border: 1px dashed #59bb5236; */
     padding: 10px;
     border: 1px solid rgb(212, 200, 200);
     border-radius: 5px;
     color: #331616;
-    /* background-color: rgb(240, 244, 245); */
-    /* background-color: rgb(240, 244, 245); */
     background-color:rgb(230, 230, 230);
+    /* border: 1px dashed #59bb5236; */
+    /* background-color: rgb(240, 244, 245); */
+    /* background-color: rgb(240, 244, 245); */
 }
-
- /* .linhaNumeros ul li {
-    border: 1px solid rgb(212, 200, 200);
-    padding: 10px;
-    border-radius: 50%;;
-    background-color: bisque;
-    width: 35px;
-    height: 35px;
-    margin: 0px auto;
-    padding: 0px;
-    text-align: center;
-} */
-
 
 .linha0, .linha1, .linha2 {
     background-color: rgb(240, 244, 245);
@@ -88,18 +75,17 @@
     justify-content: space-around;
     padding: 10px;
     align-content:space-around;
-    /* color:rgba(88, 179, 195, 0.947); */
 }
 
 .linha0cel0, .linha0cel1, .linha0cel2,
 .linha1cel0, .linha1cel1, .linha1cel2,
 .linha2cel0, .linha2cel1, .linha2cel2 {
     background-color:rgb(230, 230, 230);
-    /* padding: 2px 2px; */
     border: 1px dotted rgba(248, 200, 165, 0.947);
     box-shadow: 5px 5px rgb(241, 224, 224);
-    /* margin: 8px 4px; */
     border-radius: 5px;
+    /* padding: 2px 2px; */    
+    /* margin: 8px 4px; */
 }
 
 .cadalinpeq {
