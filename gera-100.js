@@ -20,6 +20,7 @@ let listaExisteColGr = [ [0,3,6,27,30,33,54,57,60], [1,4,7,28,31,34,55,58,61], [
 geraAleatorios(ma);
 
 var d = document; 
+
 let corpo = d.getElementsByClassName("corpo")[0];
 
 // cria o HTML (no DOM) que apresenta os números do jogo
