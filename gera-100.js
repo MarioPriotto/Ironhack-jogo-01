@@ -21,6 +21,12 @@ let listaExisteColGr = [ [0,3,6,27,30,33,54,57,60], [1,4,7,28,31,34,55,58,61], [
                [18,21,24,45,48,51,72,75,78], [19,22,25,46,49,52,73,76,79], [20,23,26,47,50,53,74,77,80]
              ];
 
+// tempo para iniciar a contagem regressiva;
+let tempototal = 60;
+let tempo = tempototal;
+let decorrido = 0;
+
+let pontos = 0;
 
 // gera na matriz "ma" números aleatórios consistentes com uma jogada completa
 geraAleatorios(ma);
@@ -79,6 +85,8 @@ for ( let i=1;i<6;i++) {
 d.getElementsByClassName('njogo')[0].addEventListener( 'click', () => { 
     // se o botão for pressionado será gerada/apresentada uma nova jogada
     geraAleatorios(ma);
+    tempo = tempototal;
+    decorrido = 0;
     atualizaReferencias(ma,listaExisteCEL3x3);
     apresentaConsole(listaExisteLinGr,ma);
 });
@@ -87,9 +95,8 @@ d.getElementsByClassName('njogo')[0].addEventListener( 'click', () => {
 // Adiciona Listener para cada campo de input
 // Adiciona classe padrão aos campos de input (se cor da fonte for black)
 // Adiciona classe especial ao campo de input que/se foi clicado
-let de = d.getElementsByClassName('cadapos');
+ let de = d.getElementsByClassName('cadapos');
 [...de].forEach( event => { 
-    event.classList.add("cadapos_padrao");
     event.addEventListener('click', (e) => {
         //if ( e.currentTarget.textContent == " " || e.currentTarget.style.color == "black" ) { 
         if ( e.currentTarget.style.color == "black" ) { 
@@ -103,21 +110,109 @@ let de = d.getElementsByClassName('cadapos');
     });
 });
 
+// ajusta classe de input selecionado ao primeiro livre (da cor black)
+ajustaPrimeiraOpcao();
+
 // adiciona evento a cada um dos 9 botões que aplicam os número 1-9
 // para o campo selecionado (borda vermelha)
 let temp = d.getElementsByClassName('clinhaN');
 for ( let i=0;i<9;i++) {
     temp[i].addEventListener( 'click', (event) => {
-        console.log("botão clicado: ",event.currentTarget);
-        if ( d.getElementsByClassName('cadapos_selec')[0] ) {
-            d.getElementsByClassName('cadapos_selec')[0].textContent = 
-                event.currentTarget.textContent;
-            ma[event.currentTarget.id] = event.currentTarget.textContent;
+        let campoSelecionado = d.getElementsByClassName('cadapos_selec')[0];
+        if ( campoSelecionado ) {
+            campoSelecionado.textContent = parseInt(event.currentTarget.textContent);
+            ma[campoSelecionado.id] = parseInt(event.currentTarget.textContent);
+            campoSelecionado.classList.remove('cadapos_selec');
+            if ( fullFields() ) { 
+                if ( correctionCheck(ma,listaExisteLinGr,listaExisteColGr,listaExisteCEL3x3) ) {
+
+                    let mult = 1;
+                    //if (d.getElementsByClassName('n1')[0].classList.contains("nsel")) mult = 1;
+                    if (d.getElementsByClassName('n2')[0].classList.contains("nsel")) mult = 5;
+                    if (d.getElementsByClassName('n3')[0].classList.contains("nsel")) mult = 10;
+                    if (d.getElementsByClassName('n4')[0].classList.contains("nsel")) mult = 15;
+                    if (d.getElementsByClassName('n5')[0].classList.contains("nsel")) mult = 20;
+                    if ( tempo > 0 ) { pontos += (tempo*mult); } else { pontos = 0; }
+                    d.getElementById("pontosId").textContent = pontos;
+
+                    mensagemEnfatizada("Parabéns, tudo certo!!!");
+
+                    geraAleatorios(ma);
+                    atualizaReferencias(ma,listaExisteCEL3x3);
+                    apresentaConsole(listaExisteLinGr,ma);
+
+                    tempo = tempototal;
+                    decorrido = 0;
+                } else {
+                    mensagemEnfatizada("Algo de errado não está certo!!! (sic)");
+                }
+            }
+            // ajusta classe de input selecionado ao primeiro livre (da cor black)
+            ajustaPrimeiraOpcao();
         }
     });
 }
 
+// ajusta o controle da contagem regressiva
+let intervalId = setInterval( () => {
+    if ( decorrido == tempototal ) { 
+        d.getElementById("tempoId").textContent = "00:00";
+        decorrido += 1;
+        mensagemEnfatizada("Você foi derrotado. Pontuação ZERADA!!!");
+    }
+    if ( decorrido > tempototal ) return;
+    if ( decorrido == 0 ) { d.getElementById("njogoId").disabled = false; }
+    tempo -= 1;
+    decorrido += 1;
+    if ( decorrido == 10 ) { d.getElementById("njogoId").disabled = true; }    
+    d.getElementById("tempoId").textContent = 
+    ((Math.floor(tempo / 60)).toString().length == 1 ? "0" + (Math.floor(tempo / 60)).toString() : (Math.floor(tempo / 60)).toString())
+    + ":" + 
+    ((tempo % 60).toString().length == 1 ? "0" + (tempo % 60).toString() : (tempo % 60).toString());
+},1000);
+
 // *******************************************************************
+
+function mensagemEnfatizada(msg) {
+    alert(msg);
+}
+
+function ajustaPrimeiraOpcao () {
+    let de = d.getElementsByClassName('cadapos');
+    let inputLiberado = false;
+    [...de].forEach( event => { 
+        if ( inputLiberado == false && event.style.color == "black" && event.textContent == " ") {
+            event.classList.add("cadapos_selec");
+            inputLiberado = true;
+        } else {
+            event.classList.add("cadapos_padrao");        
+        }
+    });
+}
+            
+// verifica se todos os campos foram preenchidos com algum número
+function fullFields() {
+    for ( let x = 0; x < 81; x++ ) {
+        if ( d.getElementById(x).textContent == " " ) return false;
+    }
+    return true;
+}
+
+// verifica se o preenchimento atual está correto
+function correctionCheck(lista,listaExisteLinGr,listaExisteColGr,listaExisteCEL3x3) {
+    for ( let x = 0; x < 9; x++ ) {
+        let soma1 = 0, soma2 = 0, soma3 = 0;
+        for ( let i = 0; i < 9; i++ ) {
+            soma1 += lista[ (listaExisteLinGr[x])[i]  ];
+            soma2 += lista[ (listaExisteCEL3x3[x])[i] ];
+            soma3 += lista[ (listaExisteColGr[x])[i]  ];
+        }
+        if ( soma1 != 45 || soma2 != 45 || soma3 != 45 ) {
+            return false;
+        }
+    }
+    return true;
+}
 
 // apresenta no console todos os números do jogo (no formato final)
 function apresentaConsole(lista,matriz) {
@@ -197,9 +292,17 @@ function existeInconsis (indice, numero, lista, listaMatriz) {
 // atualiza classes para inputs
 // atualiza cores das fontes dos inputs (vermelho/black) parametro permite selecionar
  function atualizaReferencias(lista,listaCEL3x3) {
+
     let d = document; 
 
-    let sa = [5,4,1,3,4,3,1,4,5];
+    let sa = [];
+    //if (d.getElementsByClassName('n1')[0].classList.contains("nsel")) sa = [8,7,4,6,7,6,4,7,8]; 
+    //if (d.getElementsByClassName('n1')[0].classList.contains("nsel")) sa = [9,8,5,7,8,7,5,8,9];
+    if (d.getElementsByClassName('n1')[0].classList.contains("nsel")) sa = [9,8,8,7,8,9,8,8,9];
+    if (d.getElementsByClassName('n2')[0].classList.contains("nsel")) sa = [7,6,3,5,6,5,3,6,7];
+    if (d.getElementsByClassName('n3')[0].classList.contains("nsel")) sa = [6,5,2,4,5,4,2,5,6];
+    if (d.getElementsByClassName('n4')[0].classList.contains("nsel")) sa = [5,4,1,3,4,3,1,4,5]; // era meu padrão
+    if (d.getElementsByClassName('n5')[0].classList.contains("nsel")) sa = [4,3,0,2,3,2,0,3,4];
 
     let celatuar = 0;
     while ( sa.length > 0) {
