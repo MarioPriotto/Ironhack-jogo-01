@@ -47,8 +47,8 @@ for (let i=0;i<3;i++) {
 }
 d.getElementsByClassName('n1')[0].classList.add("nsel");
 
-atualizaReferencias(ma);
-atualizaReferencias(ma);
+apresentaConsole(listaExisteLinGr,ma);
+atualizaReferencias(ma,listaExisteCEL3x3);
 
 // adiciona evento a cada um dos botões que ajustam o nível de dificuldade
 for ( let i=1;i<6;i++) {
@@ -56,7 +56,7 @@ for ( let i=1;i<6;i++) {
         [...d.getElementsByClassName('nd')].forEach( e => e.classList.remove("nsel") );
         d.getElementsByClassName('n'+i)[0].classList.add("nsel");
         geraAleatorios(ma);
-        atualizaReferencias(ma);
+        atualizaReferencias(ma,listaExisteCEL3x3);
         apresentaConsole(listaExisteLinGr,ma);
     });
 }
@@ -64,9 +64,39 @@ for ( let i=1;i<6;i++) {
 // adiciona evento ao botão de NOVA JOGADA
 d.getElementsByClassName('njogo')[0].addEventListener( 'click', () => { 
     geraAleatorios(ma);
-    atualizaReferencias(ma);
+    atualizaReferencias(ma,listaExisteCEL3x3);
     apresentaConsole(listaExisteLinGr,ma);
- });
+});
+
+for (let i=0;i<3;i++) {
+    for ( let x=0;x<3;x++) {
+        for ( let k=0;k<3;k++) {
+            for ( let j=0;j<3;j++) {
+                let de = d.getElementsByClassName("linha"+i+"cel"+x+"lc"+k+"in"+j)[0];
+                de.addEventListener( 'click', (event) => {
+                    if ( de.textContent == " " ) { 
+
+                        event.target.style.border = "1px solid red";
+                        console.log("passou-0");
+                    }
+                });
+                // de.addEventListener( 'mouseover', (event) => {
+                //     if ( de.textContent == " " ) { 
+                //         event.target.style.background = "rgba(88, 179, 195, 0.947)";
+                //         console.log("passou-9");
+                //     }
+                // });
+                // de.addEventListener( 'mouseout', (event) => {
+                //     event.target.style.background = "aliceblue";
+                //     console.log("passou-retirada");
+                // });
+            }
+        }
+    }
+}
+
+//d.getElementById('idtodas').addEventListener( 'keypress', function () {
+//d.getElementById('idtodas').addEventListener("keypress",processar,true);
 
 // *******************************************************************
 
@@ -135,8 +165,29 @@ function existeInconsis (indice, numero, lista, listaMatriz) {
     }  while ( contador < 82 )    
  }
 
- function atualizaReferencias(lista) {
+ function atualizaReferencias(lista,listaCEL3x3) {
     let d = document; 
+
+    let sa = [5,4,1,3,4,3,1,4,5];
+
+    let celatuar = 0;
+    while ( sa.length > 0) {
+        num_sort = Math.floor(Math.random() * sa.length);
+        console.log(sa, num_sort, sa[num_sort], sa.length);
+        for ( let i = 0; i < 9 - sa[num_sort] ; i++ ) {
+            while ( true ) {
+                n_sort = Math.floor(Math.random() * 9);
+                console.log(celatuar, listaCEL3x3[celatuar], );
+                if ( lista [ (listaCEL3x3[celatuar])[n_sort] ] != 0 ) {
+                     lista [ (listaCEL3x3[celatuar])[n_sort] ] = 0;
+                    break;
+                }
+            }
+        }
+        sa.splice(num_sort,1);        
+        celatuar += 1;
+    }
+
     let contador = 0;
     for (let i=0;i<3;i++) {
         for ( let x=0;x<3;x++) {
@@ -144,10 +195,16 @@ function existeInconsis (indice, numero, lista, listaMatriz) {
                 for ( let j=0;j<3;j++) {
                     let e = d.getElementsByClassName("linha"+i+"cel"+x+"lc"+k+"in"+j)[0];
                     e.textContent = lista[contador];
+                    if ( e.textContent == 0 ) { 
+                        e.textContent = " ";
+                    } else {
+                        e.style.color = "red";
+                    }
                     contador += 1;
                 }
             }
         }
     }
+
  }
 
