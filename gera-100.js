@@ -158,10 +158,13 @@ const switchModal = () => {
 
 // adiciona um "ouvinte" para quando clicar em algo na tela
 // se for na janela modal aí inverte o status de visualização
-//const btn = d.querySelector('.modalBtn');
-//btn.addEventListener('click', switchModal);
 
- window.onclick = function (event) {
+// ativa a tela de help se clicar no texto "HELP"
+const btn = d.querySelector('.modalBtn');
+btn.addEventListener('click', switchModal);
+
+// se modal estiver na tela e clicar fora, remove modal de HELP 
+window.onclick = function (event) {
      const modal = d.querySelector('.modal');
      if (event.target == modal ) { switchModal(); }
  }
