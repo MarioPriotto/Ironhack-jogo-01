@@ -172,6 +172,25 @@ let intervalId = setInterval( () => {
     ((tempo % 60).toString().length == 1 ? "0" + (tempo % 60).toString() : (tempo % 60).toString());
 },1000);
 
+const switchModal = () => {
+    const modal = d.querySelector('.modal');
+    const actualStyle = modal.style.display;
+    if (actualStyle == 'block' ) {
+        modal.style.display = 'none';
+    } else {
+        modal.style.display = 'block';
+    }
+}
+
+const btn = d.querySelector('.modalBtn');
+btn.addEventListener('click', switchModal);
+window.onclick = function (event) {
+    const modal = d.querySelector('.modal');
+    if (event.target == modal ) { switchModal(); }
+}
+
+switchModal();
+
 // *******************************************************************
 
 function mensagemEnfatizada(msg) {

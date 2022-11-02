@@ -8,8 +8,30 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    
-    <div class="todas" id="idtodas">        
+
+    <div class="todas" id="idtodas">
+
+        <div class="modal">
+            <div class="content">
+                <p class="reforcar">LINHA DE TÍTULO:</p>
+                <p>-5 botões para seleção de nível de dificuldade (do mais simples para o mais complexo). Não reinicia a contagem de tempo. Pode ser utilizado a qualquer tempo.</p>
+                <p>-botão para trocar a sequência de números (só funciona nos 10 primeiros segundos). Este botão REINICIA a contagem de tempo.</p>
+                <p>-cronômeto retroativo</p>
+                <p>-pontos acumulados</p>
+                <P>-HELP mostra estas instruções</P>
+                <br>
+                <p class="reforcar">INSTRUÇÕES PARA JOGAR:</p>
+                <p>-clicar nas células em branco</p>
+                <p>-clicar no número desejado (nos botões da linha de rodapé)</p>
+                <br>
+                <p class="reforcar">INFORMAÇÕES DO JOGO:</p>
+                <p>-termina quando o tempo ZERA sem completar o desafio</p>
+                <p>-ao completar o desafio inicia outra rodada</p>
+                <p>-os pontos: segundos restantes X (N1:1 N2:5 N2:10 N3:15 N4:20)</p>
+                <P>-nivel de dificuldade pode ser reiniciado a qualquer momento</P>
+            </div>
+        </div>
+
         <div class="linhaTitulo">
             <div class="nivelDificuldade">
                 <button class="n1 nd">1</button>
@@ -27,9 +49,12 @@
                 <img src="img/creditos.png">
                <p id="pontosId" class="pontos">0</p> 
             </div>
+            <button class="modalBtn">HELP</button>
         </div>
+
         <div class="corpo">
         </div>
+
         <div class="linhaNumeros">
             <a class="clinhaN" id="preencher1" href="#"><p>1</p></a>
             <a class="clinhaN" id="preencher2" href="#"><p>2</p></a>
@@ -41,10 +66,11 @@
             <a class="clinhaN" id="preencher8" href="#"><p>8</p></a>
             <a class="clinhaN" id="preencher9" href="#"><p>9</p></a>
         </div>
+
     </div>   
 
 </body>
 </html>
 
-<script src="gera-100.js"></script>    
+<script src="gera-100.js"></script>
 
