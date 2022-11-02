@@ -29,11 +29,9 @@
 
 .nd {
     border-radius: 12px; 
-    /* border-color: #CCCCCC; */
     border: 1px solid rgb(212, 200, 200);
     width: 25px;
     height: 25px;
-    /* padding: 15px 15px 15px 15px; */
 }
 .nsel {
     background-color: bisque;
@@ -42,7 +40,6 @@
 .njogo {
     border-radius: 5px;
     padding: 4px;
-    /* border-color: rgb(246, 228, 228); */
 }
 
 .njogo img {
@@ -56,35 +53,24 @@
 }
 
 .linhaTitulo img {
-    /* margin: 0 auto; */
     width: 15px;
-    /* padding: 0px; */
-    /* text-align: center; */
 }
 
 .tempo {
     margin: 0 auto;
-    /* padding: 0px; */
     color: blue;
     font-family: "Digi";
-    /* padding: 5px; */
     width: 40px;
     font-size: 19px;
-    /* background-color: red; */
 }
 
 .cPontos {
     display: flex;
-    /* justify-content: space-around; */
     align-items: center;
-    /* padding-left: 15px; */
-    /* flex-direction: row; */
-    /* width: 60px; */
     height: 30px;
 }
 .cPontos img {
     width: 18px;
-    /* height: 22px; */
     margin-right: 5px;
 }
 .pontos {
@@ -97,24 +83,8 @@
     display: flex;
     justify-content: space-between;
     align-items:center;
-    /* align-items: baseline; */
-
-    /* display: flex;
-    justify-content:space-between; */
-    
-    /* justify-items: center;
-    justify-items: baseline;
-    align-content: center;
-    align-content: space-between; */
-    /* align-items: center; */
-    /* text-align: center; */
-    /* vertical-align: middle; */
-
     background-color: #c8e3c653;
     margin: 2px 2px 0px 2px;
-    /* margin-left: 2px;
-    margin-right: 2px;
-    margin-top: 2px; */
     border-radius: 5px;
     height: 35px;
 }
@@ -123,7 +93,6 @@
     display: flex;
     justify-content:center;
     align-items:center;
-
     text-decoration: none;
     padding: 5px;
     border: 1px solid rgb(212, 200, 200);
@@ -138,8 +107,6 @@
     background-color: rgb(240, 244, 245);
     display: flex;
     justify-content: space-around;
-    /* padding: 6px; */
-    /* margin: 4px; */
     align-content:space-around;
 }
 
@@ -148,7 +115,6 @@
 .linha2cel0, .linha2cel1, .linha2cel2 {
     background-color:rgb(230, 230, 230);
     border: 1px dotted rgba(248, 200, 165, 0.947);
-    /* box-shadow: 5px 5px rgb(241, 224, 224); */
     border-radius: 5px;
     margin: 2px 2px 2px 2px;
 }
@@ -190,7 +156,6 @@
     background-color: #d3d3d3;
     margin: 5% auto;
     padding: 15px 15px 15px 15px;
-    /* padding-left: 20px;  */
     border-radius: 5px;
     width: 90%;
     display: flex;
@@ -199,14 +164,10 @@
 }
 
 .content p {
-    /* display: inline-block; */
-    /* vertical-align: middle;  */
-    /* text-align: left;  */
-
     margin: 0px;
     padding: 0px;
     line-height: 1.1;
-    font-size: 14px;
+    font-size: 15px;
 }
 
 .modalBtn {
@@ -214,6 +175,11 @@
     border: 0px;
     padding: 0px;
     margin: 0px;
+}
+
+.alinharCentro {
+    text-align: center;
+    width: 100%;
 }
 
 .reforcar {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,14 +21,18 @@
                 <P>-HELP mostra estas instruções</P>
                 <br>
                 <p class="reforcar">INSTRUÇÕES PARA JOGAR:</p>
-                <p>-clicar nas células em branco</p>
+                <p>-selecionar/clicar a célula em branco (alvo)</p>
                 <p>-clicar no número desejado (nos botões da linha de rodapé)</p>
+                <p>-ou digitar o número desejado</p>
+                <p>-se o número já existir não vai aceitar (e toca um beep)</p>
                 <br>
                 <p class="reforcar">INFORMAÇÕES DO JOGO:</p>
                 <p>-termina quando o tempo ZERA sem completar o desafio</p>
-                <p>-ao completar o desafio inicia outra rodada</p>
+                <p>-ao completar corretamente o desafio vai, automaticamente, iniciar outra rodada</p>
                 <p>-os pontos: segundos restantes X (N1:1 N2:5 N2:10 N3:15 N4:20)</p>
-                <P>-nivel de dificuldade pode ser reiniciado a qualquer momento</P>
+                <P>-nivel de dificuldade pode ser alterado a qualquer momento. Reinicia a rodada sem repor o tempo.</P>
+                <br>
+                <p class="alinharCentro"><button class="fecharModal">FECHAR</button></p>
             </div>
         </div>
 
@@ -40,14 +44,16 @@
                 <button class="n4 nd">4</button>
                 <button class="n5 nd">5</button>
             </div>
-            <button id="njogoId" class="njogo"><img src="img/atualizar.svg"></button>
+            <button id="njogoId" class="njogo">
+                <img src="img/atualizar.svg">
+            </button>
             <div class="cTempo">
                 <img src="img/relogio.svg">
                 <p id="tempoId" class="tempo">00:00</p>
             </div>            
             <div class="cPontos">
                 <img src="img/creditos.png">
-               <p id="pontosId" class="pontos">0</p> 
+                <p id="pontosId" class="pontos">0</p> 
             </div>
             <button class="modalBtn">HELP</button>
         </div>
@@ -56,15 +62,15 @@
         </div>
 
         <div class="linhaNumeros">
-            <a class="clinhaN" id="preencher1" href="#"><p>1</p></a>
-            <a class="clinhaN" id="preencher2" href="#"><p>2</p></a>
-            <a class="clinhaN" id="preencher3" href="#"><p>3</p></a>
-            <a class="clinhaN" id="preencher4" href="#"><p>4</p></a>
-            <a class="clinhaN" id="preencher5" href="#"><p>5</p></a>
-            <a class="clinhaN" id="preencher6" href="#"><p>6</p></a>
-            <a class="clinhaN" id="preencher7" href="#"><p>7</p></a>
-            <a class="clinhaN" id="preencher8" href="#"><p>8</p></a>
-            <a class="clinhaN" id="preencher9" href="#"><p>9</p></a>
+            <a class="clinhaN" href="#"><p>1</p></a>
+            <a class="clinhaN" href="#"><p>2</p></a>
+            <a class="clinhaN" href="#"><p>3</p></a>
+            <a class="clinhaN" href="#"><p>4</p></a>
+            <a class="clinhaN" href="#"><p>5</p></a>
+            <a class="clinhaN" href="#"><p>6</p></a>
+            <a class="clinhaN" href="#"><p>7</p></a>
+            <a class="clinhaN" href="#"><p>8</p></a>
+            <a class="clinhaN" href="#"><p>9</p></a>
         </div>
 
     </div>   

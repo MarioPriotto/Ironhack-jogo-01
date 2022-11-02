@@ -2,16 +2,16 @@ let ma = [];
 
 // cada elemento é uma lista de índices para uma linha horizontal completa
 // de cima para baixo
-let listaExisteLinGr = [ [0,1,2,9,10,11,18,19,20], [3,4,5,12,13,14,21,22,23], [6,7,8,15,16,17,24,25,26],    
+let listaExisteLinGr = [ [0,1,2,9,10,11,18,19,20], [3,4,5,12,13,14,21,22,23], [6,7,8,15,16,17,24,25,26],
                [27,28,29,36,37,38,45,46,47], [30,31,32,39,40,41,48,49,50], [33,34,35,42,43,44,51,52,53],
                [54,55,56,63,64,65,72,73,74], [57,58,59,66,67,68,75,76,77], [60,61,62,69,70,71,78,79,80] 
              ];
 
 // cada elemento é uma lista de índices para uma das 9 celulas do jogo (celula 3x3 )
 // da esquerda para direita, de cima para baixo
-let listaExisteCEL3x3 = [ [0,1,2,3,4,5,6,7,8], [9,10,11,12,13,14,15,16,17], [18,19,20,21,22,23,24,25,26], 
-               [27,28,29,30,31,32,33,34,35], [36,37,38,39,40,41,42,43,44], [45,46,47,48,49,50,51,52,53], 
-               [54,55,56,57,58,59,60,61,62], [63,64,65,66,67,68,69,70,71], [72,73,74,75,76,77,78,79,80] 
+let listaExisteCEL3x3 = [ [0,1,2,3,4,5,6,7,8], [9,10,11,12,13,14,15,16,17], [18,19,20,21,22,23,24,25,26],
+               [27,28,29,30,31,32,33,34,35], [36,37,38,39,40,41,42,43,44], [45,46,47,48,49,50,51,52,53],
+               [54,55,56,57,58,59,60,61,62], [63,64,65,66,67,68,69,70,71], [72,73,74,75,76,77,78,79,80]
              ];             
 
 // cada elemento é uma lista de índices para uma linha vertical completa
@@ -78,6 +78,7 @@ for ( let i=1;i<6;i++) {
         geraAleatorios(ma);
         atualizaReferencias(ma,listaExisteCEL3x3);
         apresentaConsole(listaExisteLinGr,ma);
+        ajustaPrimeiraOpcao();
     });
 }
 
@@ -119,37 +120,9 @@ ajustaPrimeiraOpcao();
 let temp = d.getElementsByClassName('clinhaN');
 for ( let i=0;i<9;i++) {
     temp[i].addEventListener( 'click', (event) => {
-        let campoSelecionado = d.getElementsByClassName('cadapos_selec')[0];
-        if ( campoSelecionado ) {
-            campoSelecionado.textContent = parseInt(event.currentTarget.textContent);
-            ma[campoSelecionado.id] = parseInt(event.currentTarget.textContent);
-            campoSelecionado.classList.remove('cadapos_selec');
-            if ( fullFields() ) { 
-                if ( correctionCheck(ma,listaExisteLinGr,listaExisteColGr,listaExisteCEL3x3) ) {
-
-                    let mult = 1;
-                    //if (d.getElementsByClassName('n1')[0].classList.contains("nsel")) mult = 1;
-                    if (d.getElementsByClassName('n2')[0].classList.contains("nsel")) mult = 5;
-                    if (d.getElementsByClassName('n3')[0].classList.contains("nsel")) mult = 10;
-                    if (d.getElementsByClassName('n4')[0].classList.contains("nsel")) mult = 15;
-                    if (d.getElementsByClassName('n5')[0].classList.contains("nsel")) mult = 20;
-                    if ( tempo > 0 ) { pontos += (tempo*mult); } else { pontos = 0; }
-                    d.getElementById("pontosId").textContent = pontos;
-
-                    mensagemEnfatizada("Parabéns, tudo certo!!!");
-
-                    geraAleatorios(ma);
-                    atualizaReferencias(ma,listaExisteCEL3x3);
-                    apresentaConsole(listaExisteLinGr,ma);
-
-                    tempo = tempototal;
-                    decorrido = 0;
-                } else {
-                    mensagemEnfatizada("Algo de errado não está certo!!! (sic)");
-                }
-            }
-            // ajusta classe de input selecionado ao primeiro livre (da cor black)
-            ajustaPrimeiraOpcao();
+        let fieldDestino = d.getElementsByClassName('cadapos_selec')[0];
+        if ( fieldDestino ) {
+            aplicaValorEmCampo(event.currentTarget.textContent,fieldDestino );
         }
     });
 }
@@ -172,6 +145,7 @@ let intervalId = setInterval( () => {
     ((tempo % 60).toString().length == 1 ? "0" + (tempo % 60).toString() : (tempo % 60).toString());
 },1000);
 
+// função que inverte o status de visualização do modal das intruções
 const switchModal = () => {
     const modal = d.querySelector('.modal');
     const actualStyle = modal.style.display;
@@ -182,21 +156,89 @@ const switchModal = () => {
     }
 }
 
-const btn = d.querySelector('.modalBtn');
-btn.addEventListener('click', switchModal);
-window.onclick = function (event) {
-    const modal = d.querySelector('.modal');
-    if (event.target == modal ) { switchModal(); }
-}
+// adiciona um "ouvinte" para quando clicar em algo na tela
+// se for na janela modal aí inverte o status de visualização
+//const btn = d.querySelector('.modalBtn');
+//btn.addEventListener('click', switchModal);
 
+ window.onclick = function (event) {
+     const modal = d.querySelector('.modal');
+     if (event.target == modal ) { switchModal(); }
+ }
+
+// adiciona um "ouvinte" para click no botão que é usado para fechar o modal
+d.getElementsByClassName('fecharModal')[0].addEventListener('click', () => {
+    switchModal();
+    beep();
+})
+
+// mostra a janela modal com as instruções
 switchModal();
 
-// *******************************************************************
+// se clicar, a qualquer tmepo, um número de 1 a 9 
+// havendo um campo em selecionado
+// aplica o número clicado sobre o campo
+window.onkeypress = function (event) {
+    // event.target --> mostra o elemento
+    // event.key --> mostra a tecla
+    console.log('tecla: ', event.key);
+    if ( event.key > 0 && event.key <= 9 ) {
+        let fieldDestino = d.getElementsByClassName('cadapos_selec')[0];
+        if ( fieldDestino ) {
+            aplicaValorEmCampo(event.key,fieldDestino );
+        }
+    }
+}
 
+// ======================================================================================= //
+// ======================================================================================= //
+// ======================================================================================= //
+// ======================================================================================= //
+// ======================================================================================= //
+
+function beep () {
+    var context = new AudioContext();
+    var oscillator = context.createOscillator();
+    oscillator.type = "sine";
+    oscillator.frequency.value = 400;
+    oscillator.connect(context.destination);
+    oscillator.start(); 
+    // Beep for 500 milliseconds
+    setTimeout(function () {
+        oscillator.stop();
+        }, 50);                
+}
+
+// *************************************************************************************** //
+
+function aplicaValorEmCampo (conteudo, destino) {
+    if ( existeInconsis(parseInt(destino.id),parseInt(conteudo),listaExisteLinGr,ma)  == true || 
+         existeInconsis(parseInt(destino.id),parseInt(conteudo),listaExisteCEL3x3,ma) == true ||
+         existeInconsis(parseInt(destino.id),parseInt(conteudo),listaExisteColGr,ma)  == true ) {
+         beep();
+         //mensagemEnfatizada("Há uma inconsistência nessa opção!");
+    } else {
+         destino.textContent = parseInt(conteudo);
+         ma[destino.id] = parseInt(conteudo);
+         destino.classList.remove('cadapos_selec');
+         // avalia se está tudo preenchido (se estiver testa correção)
+         fullFields();
+         // ajusta classe de input selecionado ao primeiro livre (da cor black)
+         ajustaPrimeiraOpcao();
+    }
+}
+
+// *************************************************************************************** //
+
+// Mostra na tela a mensagem que veio no parâmetro
 function mensagemEnfatizada(msg) {
     alert(msg);
 }
 
+// *************************************************************************************** //
+
+// libera para entrar com o número-opção no primeiro campo livre (até agora não preenchido)
+// faz isso inserindo uma classe que, por sinal, deixa a borda vermelha
 function ajustaPrimeiraOpcao () {
     let de = d.getElementsByClassName('cadapos');
     let inputLiberado = false;
@@ -209,14 +251,39 @@ function ajustaPrimeiraOpcao () {
         }
     });
 }
+
+// *************************************************************************************** //
             
 // verifica se todos os campos foram preenchidos com algum número
 function fullFields() {
+
     for ( let x = 0; x < 81; x++ ) {
         if ( d.getElementById(x).textContent == " " ) return false;
     }
+
+    if ( correctionCheck(ma,listaExisteLinGr,listaExisteColGr,listaExisteCEL3x3) ) {
+        let mult = 1;
+        if (d.getElementsByClassName('n1')[0].classList.contains("nsel")) mult = 1;
+        if (d.getElementsByClassName('n2')[0].classList.contains("nsel")) mult = 5;
+        if (d.getElementsByClassName('n3')[0].classList.contains("nsel")) mult = 10;
+        if (d.getElementsByClassName('n4')[0].classList.contains("nsel")) mult = 15;
+        if (d.getElementsByClassName('n5')[0].classList.contains("nsel")) mult = 20;
+        if ( tempo > 0 ) { pontos += (tempo*mult); } else { pontos = 0; }
+        d.getElementById("pontosId").textContent = pontos;
+        tempo = tempototal;
+        decorrido = 0;
+        mensagemEnfatizada("Parabéns, tudo certo!!!");
+        geraAleatorios(ma);
+        atualizaReferencias(ma,listaExisteCEL3x3);
+        apresentaConsole(listaExisteLinGr,ma);
+    } else {
+        mensagemEnfatizada("Algo de errado não está certo!!! (sic)");
+    }
+
     return true;
 }
+
+// *************************************************************************************** //
 
 // verifica se o preenchimento atual está correto
 function correctionCheck(lista,listaExisteLinGr,listaExisteColGr,listaExisteCEL3x3) {
@@ -234,6 +301,8 @@ function correctionCheck(lista,listaExisteLinGr,listaExisteColGr,listaExisteCEL3
     return true;
 }
 
+// *************************************************************************************** //
+
 // apresenta no console todos os números do jogo (no formato final)
 function apresentaConsole(lista,matriz) {
     let l = 0;
@@ -249,6 +318,8 @@ function apresentaConsole(lista,matriz) {
     });
 }
 
+// *************************************************************************************** //
+
 // nos 9 elementos de "lista", procura onde está o "indice" informado
 // encontrado o "indice", percorre as 9 posições do elemento onde foi encontrado o "indice"
 // -- verificando se na "listamatriz", considerada a lista de indices localizada, já não existe o "numero" informado
@@ -263,6 +334,8 @@ function existeInconsis (indice, numero, lista, listaMatriz) {
     }
     return null;
  }
+
+// *************************************************************************************** // 
 
 // gera 81 números aleatórios em "ma"
  function geraAleatorios (lista) {
@@ -281,12 +354,14 @@ function existeInconsis (indice, numero, lista, listaMatriz) {
                     num_sort = Math.floor(Math.random() * 9) + 1; // numero aleatório
                     if ( iteracao > 100 ) break; 
                     // se já passou mais de 100 vezes por aqui encerra este bloco (para recomeçar)
+                    
                     if ( existeInconsis(l,num_sort,listaExisteLinGr,lista)  == true ) continue; 
                     // não adiciona se já existe na linha
                     if ( existeInconsis(l,num_sort,listaExisteCEL3x3,lista) == true ) continue; 
                     // não adiciona se já existe na celula 3x3
                     if ( existeInconsis(l,num_sort,listaExisteColGr,lista)  == true ) continue; 
                     // não adiciona se já existe na coluna
+                    
                     lista[l] = num_sort;
                     // numero sorteado não existe, incluir
                     break;
@@ -308,21 +383,24 @@ function existeInconsis (indice, numero, lista, listaMatriz) {
     }  while ( contador < 82 )    
  }
 
+// *************************************************************************************** //
+
 // atualiza numeros sorteados, excluindo conforme nível de dificuldade
 // atualiza classes para inputs
 // atualiza cores das fontes dos inputs (vermelho/black) parametro permite selecionar
  function atualizaReferencias(lista,listaCEL3x3) {
 
-    let d = document; 
+    // if (d.getElementsByClassName('n4')[0].classList.contains("nsel")) sa = [5,4,1,3,4,3,1,4,5]; // era meu padrão
+
+    //beep();
 
     let sa = [];
-    //if (d.getElementsByClassName('n1')[0].classList.contains("nsel")) sa = [8,7,4,6,7,6,4,7,8]; 
-    //if (d.getElementsByClassName('n1')[0].classList.contains("nsel")) sa = [9,8,5,7,8,7,5,8,9];
+    //if (d.getElementsByClassName('n1')[0].classList.contains("nsel")) sa = [9,9,9,9,9,9,8,8,9];
     if (d.getElementsByClassName('n1')[0].classList.contains("nsel")) sa = [9,8,8,7,8,9,8,8,9];
-    if (d.getElementsByClassName('n2')[0].classList.contains("nsel")) sa = [7,6,3,5,6,5,3,6,7];
-    if (d.getElementsByClassName('n3')[0].classList.contains("nsel")) sa = [6,5,2,4,5,4,2,5,6];
-    if (d.getElementsByClassName('n4')[0].classList.contains("nsel")) sa = [5,4,1,3,4,3,1,4,5]; // era meu padrão
-    if (d.getElementsByClassName('n5')[0].classList.contains("nsel")) sa = [4,3,0,2,3,2,0,3,4];
+    if (d.getElementsByClassName('n2')[0].classList.contains("nsel")) sa = [8,7,7,6,7,8,7,7,8];
+    if (d.getElementsByClassName('n3')[0].classList.contains("nsel")) sa = [7,6,6,5,6,7,6,6,7];
+    if (d.getElementsByClassName('n4')[0].classList.contains("nsel")) sa = [6,5,5,4,5,6,5,5,6];
+    if (d.getElementsByClassName('n5')[0].classList.contains("nsel")) sa = [5,4,4,3,4,5,4,4,5];
 
     let celatuar = 0;
     while ( sa.length > 0) {
@@ -368,3 +446,4 @@ function existeInconsis (indice, numero, lista, listaMatriz) {
 
  }
 
+ // *************************************************************************************** //
