@@ -23,16 +23,21 @@ class sudoku {
     }
 
     aplicaValorEmCampo (conteudo, destino) {
+        if ( conteudo.toUpperCase() == "X" ) {
+             destino.textContent = " ";
+             this.ma[destino.id] = 0;
+             return;
+        }
         if ( this.existeInconsis(parseInt(destino.id),parseInt(conteudo),this.listaExisteLinGr,this.ma)  || 
              this.existeInconsis(parseInt(destino.id),parseInt(conteudo),this.listaExisteCEL3x3,this.ma) ||
              this.existeInconsis(parseInt(destino.id),parseInt(conteudo),this.listaExisteColGr,this.ma) ) {
-            beep();
+             beep();
         } else {
-            destino.textContent = parseInt(conteudo);
-            this.ma[destino.id] = parseInt(conteudo);
-            destino.classList.remove('cadapos_selec');
-            this.fullFields();
-            this.ajustaPrimeiraOpcao();
+             destino.textContent = parseInt(conteudo);
+             this.ma[destino.id] = parseInt(conteudo);
+             destino.classList.remove('cadapos_selec');
+             this.fullFields();
+             this.ajustaPrimeiraOpcao();
         }
     }
 
@@ -330,7 +335,7 @@ switchModal();
 
 window.onkeypress = function (event) {
     //console.log('tecla: ', event.key);
-    if ( event.key > 0 && event.key <= 9 ) {
+    if ( (event.key > 0 && event.key <= 9) || event.key.toUpperCase() == "X" ) {
         let fieldDestino = d.getElementsByClassName('cadapos_selec')[0];
         if ( fieldDestino ) {
             instancia.aplicaValorEmCampo(event.key,fieldDestino );
