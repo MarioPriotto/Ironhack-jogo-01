@@ -38,7 +38,9 @@ class sudoku {
 
     ajustaPrimeiraOpcao () {
         let todosOsCampos = [...d.getElementsByClassName('cadapos')];
-        todosOsCampos.forEach( ele => ele.classList.remove("cadapos_selec") );
+        todosOsCampos.forEach( 
+            ele => ele.classList.remove("cadapos_selec") 
+        );
         let primeiroIndiceLivre = todosOsCampos.findIndex( (e,i,a) => 
             e.classList.contains("cadapos_flexivel") && e.textContent == " "
         );
@@ -46,11 +48,18 @@ class sudoku {
     }
 
     fullFields() {
-        if ( [...d.getElementsByClassName('cadapos')].findIndex( (e,i,a) => e.textContent === " " ) !== -1 ) return false;
+        if ( [...d.getElementsByClassName('cadapos')].findIndex( (e,i,a) => e.textContent === " " ) !== -1 ) 
+            return false;
         if ( this.correctionCheck() ) {
-            let nDificuldade = [...d.getElementsByClassName('nd')].findIndex( (e,i,a) => e.classList.contains("nsel") );
+            let nDificuldade = [...d.getElementsByClassName('nd')].findIndex( 
+                (e,i,a) => e.classList.contains("nsel") 
+            );
             let mult = ([1,5,10,15,20])[nDificuldade];
-            if ( this.tempo > 0 ) { this.pontos += (this.tempo*mult); } else { this.pontos = 0; }
+            if ( this.tempo > 0 ) { 
+                this.pontos += (this.tempo*mult); 
+            } else { 
+                this.pontos = 0; 
+            }
             d.getElementById("pontosId").textContent = this.pontos;
             this.tempo = this.tempototal;
             this.decorrido = 0;
@@ -75,28 +84,32 @@ class sudoku {
     }
 
     apresentaConsole() {
-        console.log("-------------------------------");
-        this.listaExisteLinGr.forEach( (ele,index,array) => {
-            console.log("| ", this.ma[ele[0]], this.ma[ele[1]], this.ma[ele[2]], " | ", 
-                            this.ma[ele[3]], this.ma[ele[4]], this.ma[ele[5]], " | ", 
-                            this.ma[ele[6]], this.ma[ele[7]], this.ma[ele[8]], " |");
-            if ( index == 2 || index == 5 || index == 8 ) {
-                console.log("-------------------------------");
-            }
-        });
+        // console.log("-------------------------------");
+        // this.listaExisteLinGr.forEach( (ele,index,array) => {
+        //     console.log("| ", this.ma[ele[0]], this.ma[ele[1]], this.ma[ele[2]], " | ", 
+        //                     this.ma[ele[3]], this.ma[ele[4]], this.ma[ele[5]], " | ", 
+        //                     this.ma[ele[6]], this.ma[ele[7]], this.ma[ele[8]], " |");
+        //     if ( index == 2 || index == 5 || index == 8 ) {
+        //         console.log("-------------------------------");
+        //     }
+        // });
     }
 
     existeInconsis (indice, numero, lista) {
-        let qualIndiceNivel1 = lista.findIndex( ele => ele.includes(indice) );
-        return lista[qualIndiceNivel1].some( ele => this.ma[ele] == numero );
+        let qualIndiceNivel1 = lista.findIndex( 
+            ele => ele.includes(indice) 
+        );
+        return lista[qualIndiceNivel1].some( 
+            ele => this.ma[ele] == numero 
+        );
     }
 
     geraAleatorios () {
         this.ma.forEach( ele => ele = 0);
         let iteracao = 0, iteracaoMilhao = 0, contador = 0;
         do { 
-            iteracaoMilhao = 0;
-            while ( true ) {
+           iteracaoMilhao = 0;
+           while ( true ) {
                 for ( let l = 0+contador; l < 9+contador ; l++ ) {
                     iteracao = 0;
                     while (true) {
@@ -118,9 +131,9 @@ class sudoku {
                     continue;
                 }
                 break;
-            }
-            if ( iteracaoMilhao > 5 ) { this.ma.map( e => e = 0 );  contador=0; continue; }
-            contador = contador + 9;
+           }
+           if ( iteracaoMilhao > 5 ) { this.ma.map( e => e = 0 );  contador=0; continue; }
+           contador = contador + 9;
         }  while ( contador < 81 )    
     }
 
@@ -146,19 +159,21 @@ class sudoku {
     }
 
     atualizaClasseCadaPosicao () {
-        [...d.getElementsByClassName('cadapos')].forEach( (ele,index,array) => { 
-            ele.classList.add("cadapos_padrao");
-            ele.classList.remove("cadapos_selec");
-            ele.textContent = this.ma[index];
-            if ( ele.textContent == 0 ) { 
-                ele.textContent = " ";
-                ele.classList.add("cadapos_flexivel");
-                ele.classList.remove("cadapos_fixa");
-            } else {
-                ele.classList.add("cadapos_fixa");
-                ele.classList.remove("cadapos_flexivel");
+        [...d.getElementsByClassName('cadapos')].forEach( 
+            (ele,index,array) => { 
+                ele.classList.add("cadapos_padrao");
+                ele.classList.remove("cadapos_selec");
+                ele.textContent = this.ma[index];
+                if ( ele.textContent == 0 ) { 
+                    ele.textContent = " ";
+                    ele.classList.add("cadapos_flexivel");
+                    ele.classList.remove("cadapos_fixa");
+                } else {
+                    ele.classList.add("cadapos_fixa");
+                    ele.classList.remove("cadapos_flexivel");
+                }
             }
-        });
+        );
     }
 
 }
@@ -166,7 +181,6 @@ class sudoku {
 // *************************************************************************************** //
 
 var instancia = new sudoku(600);
-
 var d = document; 
 var corpo = d.getElementsByClassName("corpo")[0];
 
@@ -200,52 +214,68 @@ instancia.removeGerarNivelDificuldade();
 instancia.atualizaClasseCadaPosicao();
 
 [...d.getElementsByClassName('nd')].forEach( 
-    rep => { rep.addEventListener( 
-        'click', (event) => { [...d.getElementsByClassName('nd')].forEach( 
-             ele => ele.classList.remove("nsel") 
-         );
-         event.currentTarget.classList.add("nsel");
-         instancia.geraAleatorios();
-         instancia.removeGerarNivelDificuldade();
-         instancia.atualizaClasseCadaPosicao();
-         instancia.apresentaConsole();
-         instancia.ajustaPrimeiraOpcao();
-    });
-});
+    rep => { 
+        rep.addEventListener( 
+            'click', (event) => { 
+                [...d.getElementsByClassName('nd')].forEach( 
+                    ele => ele.classList.remove("nsel") 
+                );
+                event.currentTarget.classList.add("nsel");
+                instancia.geraAleatorios();
+                instancia.removeGerarNivelDificuldade();
+                instancia.atualizaClasseCadaPosicao();
+                instancia.apresentaConsole();
+                instancia.ajustaPrimeiraOpcao();
+            }
+        );
+    }
+);
 
-d.getElementById('njogoId').addEventListener( 'click', () => { 
-    instancia.geraAleatorios();
-    instancia.tempo = instancia.tempototal;
-    instancia.decorrido = 0;
-    instancia.removeGerarNivelDificuldade();
-    instancia.atualizaClasseCadaPosicao();
-    instancia.apresentaConsole();
-    instancia.ajustaPrimeiraOpcao();
-});
+d.getElementById('njogoId').addEventListener( 
+    'click', () => { 
+        instancia.geraAleatorios();
+        instancia.tempo = instancia.tempototal;
+        instancia.decorrido = 0;
+        instancia.removeGerarNivelDificuldade();
+        instancia.atualizaClasseCadaPosicao();
+        instancia.apresentaConsole();
+        instancia.ajustaPrimeiraOpcao();
+    }
+);
 
-[...d.getElementsByClassName('cadapos')].forEach( ele => { 
-    ele.addEventListener('click', (event) => {
-        if ( event.currentTarget.classList.contains("cadapos_flexivel") ) { 
-            [...d.getElementsByClassName('cadapos')].forEach( eli => {
-                eli.classList.remove("cadapos_selec");
-                eli.classList.add("cadapos_padrao");
-            });
-            event.currentTarget.classList.add("cadapos_selec");
-            event.currentTarget.classList.remove("cadapos_padrao");
-        }
-    });
-});
+[...d.getElementsByClassName('cadapos')].forEach( 
+    ele => { 
+        ele.addEventListener(
+            'click', (event) => {
+                if ( event.currentTarget.classList.contains("cadapos_flexivel") ) { 
+                    [...d.getElementsByClassName('cadapos')].forEach( 
+                        eli => {
+                            eli.classList.remove("cadapos_selec");
+                            eli.classList.add("cadapos_padrao");
+                        }
+                    );
+                    event.currentTarget.classList.add("cadapos_selec");
+                    event.currentTarget.classList.remove("cadapos_padrao");
+                }
+            }
+        );
+    }
+);
 
 instancia.ajustaPrimeiraOpcao();
 
-[...d.getElementsByClassName('numeroJogar')].forEach( ele => {
-    ele.addEventListener( 'click', (event) => {
-       let fieldDestino = d.getElementsByClassName('cadapos_selec')[0];
-       if ( fieldDestino ) {
-        instancia.aplicaValorEmCampo(event.currentTarget.textContent,fieldDestino );
-       }
-    });
-});
+[...d.getElementsByClassName('numeroJogar')].forEach( 
+    ele => {
+        ele.addEventListener( 
+            'click', (event) => {
+                let fieldDestino = d.getElementsByClassName('cadapos_selec')[0];
+                if ( fieldDestino ) { 
+                    instancia.aplicaValorEmCampo(event.currentTarget.textContent,fieldDestino); 
+                }
+            }
+        );
+    }
+);
 
 let intervalId = setInterval( () => {
     if ( instancia.decorrido == instancia.tempototal ) { 
@@ -284,18 +314,22 @@ d.querySelector('.modalBtn').addEventListener('click', switchModal);
 
 window.onclick = function (event) {
      const modal = d.querySelector('.modal');
-     if (event.target == modal ) { switchModal(); }
- }
+     if (event.target == modal) switchModal();
+};
 
-d.getElementsByClassName('fecharModal')[0].addEventListener('click', () => {
-    switchModal();
-    beep();
-})
+[...d.getElementsByClassName('fecharModal')].forEach(
+    ele => ele.addEventListener(
+        'click', () => {
+            switchModal();
+            beep();
+        }
+    )
+);
 
 switchModal();
 
 window.onkeypress = function (event) {
-    console.log('tecla: ', event.key);
+    //console.log('tecla: ', event.key);
     if ( event.key > 0 && event.key <= 9 ) {
         let fieldDestino = d.getElementsByClassName('cadapos_selec')[0];
         if ( fieldDestino ) {
